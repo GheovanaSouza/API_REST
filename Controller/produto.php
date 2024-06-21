@@ -6,7 +6,7 @@
     require_once '../DAO/produtoPut.php';
     require_once '../DAO/produtoPatch.php';
     require '../DAO/produtoDelete.php';
-    require '../Model/Usuario.php';
+    require '../Model/Produto.php';
     require '../Model/Resposta.php';
 
     $req = $_SERVER;
@@ -52,17 +52,15 @@
             echo json_encode($in);
              break;
          case 'PATCH':
-            $dados = json_decode(file_get_contents('php://input'));
-            $query = $dados->query;
 
-            $resp = editar_produto_parcialmente($conexao, $query);
+            $resp = editar_produto_parcialmente($conexao);
             $resposta = new Resposta('','');
             if($resp){
-                $resposta = criarResposta(204, 'Atualizado com sucesso');
+                $resposta = criarResposta('204', 'Atualizado com sucesso');
             } else{
                $resposta = criarResposta('400', 'Não atualizado');
             }
-             echo 'Fiz um PATCH';
+            echo 'Atualizado com Sucesso';
              break;
          case 'DELETE':
             $dados = json_decode(file_get_contents('php://input'));
